@@ -1,0 +1,14 @@
+[project]
+name = "gummy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "kaleido>=1.2.0",
+    "numpy>=2.0.0",
+    "pandas>=3.0.2",
+    "pingouin>=0.6.1",
+    "plotly>=6.7.0",
+    "setuptools>=82.0.1",
+]

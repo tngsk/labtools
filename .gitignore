@@ -1,0 +1,37 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# macOS files
+.DS_Store
+
+# IDE files
+.zed/
+
+# uv files
+uv.lock
+
+# Editor temporary files
+*~
+.#*
+
+# Log files
+*.log
+
+# Jupyter/Colab files
+.ipynb_checkpoints/
+*.orig
+
+# Image files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
