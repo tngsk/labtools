@@ -2,9 +2,10 @@
 # uv sync
 #
 # 実行
-# uv run python scripts/williams-latin-square.py
+# uv run python scripts/williams_latin_square.py
 
 import random
+import secrets
 from datetime import datetime
 
 import pandas as pd
@@ -65,7 +66,7 @@ def create_experiment_sheet(
 
     # 割り当て前にシャッフルを行う
     # これにより、バランスを維持したまま「誰と誰が同じか」をバラバラにする
-    random.shuffle(selected)
+    secrets.SystemRandom().shuffle(selected)
     selected = selected[:n_participants]
 
     # 順序確認表
@@ -108,10 +109,11 @@ def create_experiment_sheet(
     return summary
 
 
-# 実行例：9名 × 4種類のグミ
-create_experiment_sheet(
-    n_participants=9,
-    conditions=["A", "B", "C", "D"],
-    item_label="グミの種類",
-    score_label="評価（1-7）",
-)
+if __name__ == "__main__":
+    # 実行例：9名 × 4種類のグミ
+    create_experiment_sheet(
+        n_participants=9,
+        conditions=["A", "B", "C", "D"],
+        item_label="グミの種類",
+        score_label="評価（1-7）",
+    )
