@@ -14,18 +14,13 @@ import pandas as pd
 import pingouin as pg
 
 import visualize as graph
+from utils import fmt_p
 
 pd.set_option(
     "display.float_format",
     lambda x: np.format_float_positional(x, precision=4, fractional=False, trim="-"),
 )
 np.set_printoptions(suppress=True, precision=8)
-
-
-def fmt_p(x):
-    if pd.isna(x):
-        return x
-    return np.format_float_positional(x, precision=4, fractional=False, trim="-")
 
 
 def run_analysis(df: pd.DataFrame, meta: dict) -> None:
