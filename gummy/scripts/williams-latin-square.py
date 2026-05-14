@@ -89,17 +89,16 @@ def create_experiment_sheet(
 
     # CSV 出力（データ記録用シート）
     if output_csv:
-        rows = []
-        for i, order in enumerate(selected):
-            for pos, cond in enumerate(order, 1):
-                rows.append(
-                    {
-                        "参加者ID": f"S{i + 1:02d}",
-                        "提示順序": pos,
-                        item_label: cond,
-                        score_label: "",
-                    }
-                )
+        rows = [
+            {
+                "参加者ID": f"S{i + 1:02d}",
+                "提示順序": pos,
+                item_label: cond,
+                score_label: "",
+            }
+            for i, order in enumerate(selected)
+            for pos, cond in enumerate(order, 1)
+        ]
         sheet = pd.DataFrame(rows)
         fname = f"experiment_sheet_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
         sheet.to_csv(fname, index=False, encoding="utf-8-sig")
