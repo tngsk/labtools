@@ -9,9 +9,6 @@ import numpy as np
 
 # simulation_clt.py
 
-# 乱数の種（毎回同じ結果にしたいときだけ）
-# np.random.seed(1)
-
 n_samples = 100000  # サンプル数（大きいほど滑らかになる）
 
 # 1〜6 が一様に出る乱数（サイコロ）
