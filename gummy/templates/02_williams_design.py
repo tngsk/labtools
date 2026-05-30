@@ -3,9 +3,11 @@ Williamsデザインを用いたバランス型ラテン方格生成のテンプ
 実験の提示順序を割り当て、順序効果（キャリーオーバー効果）を相殺します。
 """
 
+import os
 import secrets
 from datetime import datetime
 import pandas as pd
+
 
 def generate_williams_design(conditions):
     """
@@ -35,7 +37,15 @@ def generate_williams_design(conditions):
 
     return [[conditions[idx] for idx in r] for r in rows]
 
-def create_experiment_sheet(n_participants, conditions, item_label="Condition", score_label="Score", output_csv=True, filename_prefix="experiment_sheet"):
+
+def create_experiment_sheet(
+    n_participants,
+    conditions,
+    item_label="Condition",
+    score_label="Score",
+    output_csv=True,
+    filename_prefix="experiment_sheet",
+):
     """
     実験用の順序割り当て表を作成し、必要に応じてCSVに出力します。
 
@@ -57,9 +67,7 @@ def create_experiment_sheet(n_participants, conditions, item_label="Condition", 
     n_cond = len(conditions)
 
     # --- サマリーの表示 ---
-    summary_data = {
-        "Participant_ID": [f"S{i + 1:02d}" for i in range(n_participants)]
-    }
+    summary_data = {"Participant_ID": [f"S{i + 1:02d}" for i in range(n_participants)]}
     for j in range(n_cond):
         summary_data[f"Order_{j + 1}"] = [o[j] for o in selected]
     summary_data["Full_Sequence"] = [" -> ".join(o) for o in selected]
@@ -79,18 +87,21 @@ def create_experiment_sheet(n_participants, conditions, item_label="Condition", 
         rows = []
         for i, order in enumerate(selected):
             for pos, cond in enumerate(order, 1):
-                rows.append({
-                    "Participant_ID": f"S{i + 1:02d}",
-                    "Presentation_Order": pos,
-                    item_label: cond,
-                    score_label: ""
-                })
+                rows.append(
+                    {
+                        "Participant_ID": f"S{i + 1:02d}",
+                        "Presentation_Order": pos,
+                        item_label: cond,
+                        score_label: "",
+                    }
+                )
         sheet = pd.DataFrame(rows)
-        fname = f"{filename_prefix}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+        fname = f"{os.path.basename(filename_prefix)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
         sheet.to_csv(fname, index=False, encoding="utf-8-sig")
         print(f"\n実験用記録シートを '{fname}' として保存しました。")
 
     return summary
+
 
 if __name__ == "__main__":
     # 実行例：8名 × 4条件の実験シート作成
@@ -98,5 +109,5 @@ if __name__ == "__main__":
         n_participants=8,
         conditions=["Cond_A", "Cond_B", "Cond_C", "Cond_D"],
         item_label="Target_Item",
-        score_label="Rating_1_to_7"
+        score_label="Rating_1_to_7",
     )
