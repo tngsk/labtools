@@ -4,7 +4,6 @@
 # 実行
 # uv run python scripts/williams_latin_square.py
 
-import random
 import secrets
 from datetime import datetime
 

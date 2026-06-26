@@ -8,12 +8,23 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
+
 class TestFmtP(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Only mock if they are actually missing
         cls.mocks = {}
-        for mod in ['numpy', 'pandas', 'pingouin', 'visualize', 'kaleido', 'plotly', 'plotly.express', 'plotly.graph_objects', 'plotly.subplots']:
+        for mod in [
+            "numpy",
+            "pandas",
+            "pingouin",
+            "visualize",
+            "kaleido",
+            "plotly",
+            "plotly.express",
+            "plotly.graph_objects",
+            "plotly.subplots",
+        ]:
             if mod not in sys.modules:
                 mock = MagicMock()
                 sys.modules[mod] = mock
@@ -34,7 +45,7 @@ class TestFmtP(unittest.TestCase):
         from utils import fmt_p
         import pandas as pd
 
-        nan_val = float('nan')
+        nan_val = float("nan")
         pd.isna.return_value = True
 
         result = fmt_p(nan_val)
@@ -73,6 +84,7 @@ class TestFmtP(unittest.TestCase):
 
         pd.isna.assert_called_with(None)
         self.assertIsNone(result)
+
 
 if __name__ == "__main__":
     unittest.main()

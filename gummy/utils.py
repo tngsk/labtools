@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 def fmt_p(x):
     """
     Format a p-value for display.

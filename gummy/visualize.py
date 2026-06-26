@@ -82,8 +82,8 @@ def sphericity_check(df: pd.DataFrame, subject: str, within: str, dv: str) -> go
         for c1, c2 in combinations(conditions, 2)
     }
     pair_vars = {k: float(np.var(v, ddof=1)) for k, v in pair_diffs.items()}
-    min_pair = min(pair_vars, key=lambda k: pair_vars[k])
-    max_pair = max(pair_vars, key=lambda k: pair_vars[k])
+    min_pair = min(pair_vars, key=pair_vars.get)
+    max_pair = max(pair_vars, key=pair_vars.get)
     ref_pair = next(k for k in pair_diffs if k not in (min_pair, max_pair))
     lim = float(max(np.abs(v).max() for v in pair_diffs.values())) + 0.5
 
