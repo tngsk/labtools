@@ -239,7 +239,8 @@ class InstantIdentifier:
         try:
             std_dev = stdev(recent_values)
             return std_dev < self.stable_threshold
-        except:
+        except Exception as e:
+            print(f"Error calculating standard deviation: {e}")
             return False
 
     def get_stable_distance(self, channel):
@@ -799,8 +800,8 @@ def get_available_ports():
                         ports.append(port)
                     elif not any(x in port.lower() for x in ['bluetooth', 'debug-console', 'ysaudio', 'redmi']):
                         ports.append(port)
-        except:
-            pass
+        except Exception as e:
+            print(f"Fallback port detection error: {e}")
 
     return sorted(ports)
 
@@ -874,8 +875,8 @@ def select_operation_mode():
                 print("Invalid selection. Please choose 1, 2, or 3.")
         except KeyboardInterrupt:
             return None, None
-        except:
-            print("Invalid input. Please try again.")
+        except Exception as e:
+            print(f"Invalid input ({e}). Please try again.")
 
 
 def signal_handler(sig, frame):
@@ -890,8 +891,8 @@ def cleanup_resources():
         if 'receiver' in globals() and receiver:
             receiver.disconnect()
         plt.close('all')
-    except:
-        pass
+    except Exception as e:
+        print(f"Cleanup error: {e}")
 
 def main():
     global receiver
@@ -1026,8 +1027,8 @@ def main():
             # スレッドの終了を少し待つ
             if 'data_thread' in locals() and data_thread.is_alive():
                 data_thread.join(timeout=1)
-        except:
-            pass
+        except Exception as e:
+            print(f"Cleanup error: {e}")
         print("Disconnected and cleaned up.")
 
 
