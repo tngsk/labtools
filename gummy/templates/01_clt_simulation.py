@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
+
 def simulate_clt(n_samples=100000, output_file="clt_simulation_result.png"):
     """
     中心極限定理のシミュレーションを実行し、グラフを保存します。
@@ -31,8 +32,12 @@ def simulate_clt(n_samples=100000, output_file="clt_simulation_result.png"):
     fig, axes = plt.subplots(1, 3, figsize=(15, 4))
 
     # 1個
-    axes[0].hist(uniform_1, bins=np.arange(0.5, 6.6, 1), density=True, edgecolor="black")
-    axes[0].set_title("Dice x 1 (Uniform)") # 日本語フォントが入っていない環境への配慮で英語に変更
+    axes[0].hist(
+        uniform_1, bins=np.arange(0.5, 6.6, 1), density=True, edgecolor="black"
+    )
+    axes[0].set_title(
+        "Dice x 1 (Uniform)"
+    )  # 日本語フォントが入っていない環境への配慮で英語に変更
 
     # 10個合計
     axes[1].hist(uniform_10, bins=30, density=True, edgecolor="black")
@@ -49,10 +54,11 @@ def simulate_clt(n_samples=100000, output_file="clt_simulation_result.png"):
     plt.tight_layout()
 
     # グラフの保存
-    os.makedirs(os.path.dirname(os.path.abspath(output_file)) or '.', exist_ok=True)
+    os.makedirs(os.path.dirname(os.path.abspath(output_file)) or ".", exist_ok=True)
     plt.savefig(output_file)
     print(f"シミュレーション結果を {output_file} に保存しました。")
     plt.close()
+
 
 if __name__ == "__main__":
     # 実行例
