@@ -10,7 +10,7 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from itertools import combinations
-import os
+from pathlib import Path
 
 
 # --- ヘルパー関数 ---
@@ -117,7 +117,7 @@ def run_rm_anova_analysis(
     print("--- 1. Descriptive Statistics ---")
     print(df.groupby(within_col)[dv_col].agg(["mean", "std", "count"]).round(3))
 
-    os.makedirs(output_dir, exist_ok=True)
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     print("\n--- 2. Visualizations ---")
     try:
