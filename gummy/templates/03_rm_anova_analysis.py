@@ -111,26 +111,20 @@ def plot_sphericity_check(df, subject, within, dv):
 
 # --- メイン分析関数 ---
 def run_rm_anova_analysis(
-    df, subject_col, within_col, dv_col, output_dir="assets_template"
+    df, subject_col, within_col, dv_col, show_plots=True
 ):
     """反復測定分散分析と可視化の実行"""
     print("--- 1. Descriptive Statistics ---")
     print(df.groupby(within_col)[dv_col].agg(["mean", "std", "count"]).round(3))
 
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
-
-    print("\n--- 2. Visualizations ---")
-    try:
-        plot_sphericity_check(df, subject_col, within_col, dv_col).write_image(
-            f"{output_dir}/01_sphericity.png"
-        )
-        plot_individual_trends(df, subject_col, within_col, dv_col).write_image(
-            f"{output_dir}/02_individual.png"
-        )
-        plot_summary(df, within_col, dv_col).write_image(f"{output_dir}/03_summary.png")
-        print(f"Graphs saved to {output_dir}/")
-    except Exception as e:
-        print(f"Could not save images (kaleido may not be installed): {e}")
+    if show_plots:
+        print("\n--- 2. Visualizations ---")
+        try:
+            plot_sphericity_check(df, subject_col, within_col, dv_col).show()
+            plot_individual_trends(df, subject_col, within_col, dv_col).show()
+            plot_summary(df, within_col, dv_col).show()
+        except Exception as e:
+            print(f"Plotting failed (e.g., in a headless environment): {e}")
 
     print("\n--- 3. Repeated Measures ANOVA ---")
     aov = pg.rm_anova(
